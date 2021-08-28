@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+
+        body{
+            margin: 0px;
+            padding: 0px;
+            background: tomato;
+        }
+
+        #background{
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #formwrapper{
+            font-family: 'Staatliches', cursive;
+            font-size: 4vh;
+            height: 70vh;
+            width: 50vw;
+            border: 3px solid black;
+            border-radius: 20px;
+            background: white;
+        }
+
+        form{
+            text-align: center;
+        }
+
+        h2{
+            font-size: 9vh;
+        }
+
+        input{
+            font-size: 4vh;
+            width: 30vw;
+        }
+
+        #button{
+            width: 50vw;
+            height: 7vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        button{
+            font-family: 'Staatliches', cursive;
+            width: 25vw;
+            font-size: 4vh;
+            line-height: 6vh;
+            border: 3px solid black;
+        }
+
+        button:hover{
+            background: black;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="background">
+        <div id="formwrapper">
+            <form action = "/signin" method="POST">
+                <h2>Login</h2>
+                <label for="username">Username: &nbsp;</label>
+                <input id="username" name="username" autocomplete="off" type="text"><br><br>
+                <label>Password: &nbsp;</label>
+                <input id="password" name="password" autocomplete="off" type="password"><br><br>
+                <div id="button">
+                    <button type="submit">Signin</button>
+                </div> <br>
+                <a href="/register">Register here</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

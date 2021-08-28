@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+        body{
+            margin: 0px;
+            padding: 0px;
+        }
+        #header{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 100vw;
+            height: 15vh;
+            background: black;
+            color: white;
+        }
+        .headeritems{
+            font-family: 'Staatliches', cursive;
+            font-size: 8vh;
+            flex-grow: 1;
+            text-align: center;
+        }
+        .headeritems:hover{
+            border-bottom: 3px solid white;
+            transition: 0.2s ease
+        }
+        .content{
+            width: 100vw;
+            height: 85vh;
+            background: tomato;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: auto;
+        }
+        .slide{
+            position: absolute;
+            color: black;
+            background: white;
+            width: 85vw;
+            margin-top: 3vh;
+            height: 80vh;
+        }
+        .rORd{
+            position: relative;
+            top: 0;
+            width: 85vw;
+            height: 6vh;
+            background: #ebebeb;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .options{
+            text-align: center;
+            flex-grow: 1;
+            font-family: 'Staatliches', cursive;
+            font-size: 4vh;
+        }
+        .input{
+            position: relative;
+            top: 6vh;
+            left: 4.5vw;
+            text-align: center;
+            width: 75vw;
+            height: 30vh;
+            font-size: 5vh;
+            border: 3px solid white
+        }
+        .options:hover{
+            font-size: larger;
+        }
+        .input:hover{
+            border: 3px solid black
+        }
+        a{
+            text-decoration: none;
+            color: white
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <a href="/home" class="headeritems">Go back</a>
+        <div class="headeritems" id="addslide">Add Slide</div>
+        <div class="headeritems" id="save">Save</div>
+    </div>
+    <div class="container">
+        <div class="content">
+            <div class="slide">
+                <div class="rORd">
+                    <div class = "options">remove</div>
+                    <div class = "options">duplicate</div>
+                </div>
+                <input type="text" name="page1" placeholder="Type here" class="input">
+            </div>
+        </div>
+    </div>
+    <script>
+        let addslide = document.querySelector("#addslide")
+        let container = document.querySelector(".container")
+        let save = document.querySelector("#save")
+        let options = document.querySelector(".options")
+
+        document.addEventListener("click", (e)=>{
+            if(e.target.innerHTML === "remove"){
+                e.target.parentNode.parentNode.parentNode.remove()
+            } 
+            if(e.target.innerHTML === "duplicate"){
+                let clone = e.target.parentNode.parentNode.parentNode.cloneNode(true)
+                container.appendChild(clone)
+            }
+        })
+
+        console.log("om namo narayana")
+        addslide.addEventListener("click", ()=>{
+            let cntnt = document.createElement("div")
+            let slidediv = document.createElement("div")
+            let rORddiv = document.createElement("div")
+            let rmvdiv = document.createElement("div")
+            let dupdiv = document.createElement("div")
+            let inp = document.createElement("input")
+            rmvdiv.innerHTML = "remove"
+            dupdiv.innerHTML = "duplicate"
+            inp.placeholder = "Type here"
+            inp.type ="text"
+            inp.name = `page${container.childElementCount+1}`
+
+            rmvdiv.classList.add("options")
+            dupdiv.classList.add("options")
+            rORddiv.classList.add("rORd")
+            inp.classList.add("input")
+            slidediv.classList.add("slide")
+            cntnt.classList.add("content")
+
+            rORddiv.appendChild(rmvdiv)
+            rORddiv.appendChild(dupdiv)
+            slidediv.appendChild(rORddiv)
+            slidediv.appendChild(inp)
+            cntnt.appendChild(slidediv)
+            container.appendChild(cntnt)
+        })
+
+        save.addEventListener("click", (e)=>{
+            let data=[]
+            let cln = Array.prototype.slice.call(document.querySelectorAll('.input'), 0)
+            for(var i=0; i<container.childElementCount; i++){
+                data.push(cln[i].value)
+            }
+            data = {data}
+            let options = {
+                method: "POST",
+                headers:{
+                    "Content-Type": "application/json"
+                },
+                redirect: "follow",
+                body: JSON.stringify(data)
+            }
+            fetch("/pptapi", options)
+                .then(result => {
+                    if(result.redirected){
+                        window.location.href = result.url
+                    }
+                })
+                .catch(err => console.log(err))
+        })
+    </script>
+</body>
+</html>

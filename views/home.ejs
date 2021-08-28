@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+        body{
+            margin: 0px;
+            padding: 0px;
+        }
+        #header{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            background: black;
+            color: white;
+            width: 100vw;
+            height: 15vh;
+        }
+        .headeritems{
+            font-family: 'Staatliches', cursive;
+            font-size: 8vh;
+            flex-grow: 1;
+            text-align: center;
+        }
+        #add:hover, #logout:hover{
+            border-bottom: 3px solid white;
+            transition: 0.2s ease
+        }
+        #content{
+            background: tomato;
+            width: 100vw;
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .ppts{
+            width: 40vw;
+            height: 8vh;
+            background: white;
+            border: 3px solid black;
+            border-radius: 25px;
+            margin-top: 3vh;
+            font-family: 'Staatliches', cursive;
+            font-size: 5vh;
+            text-align: center;
+            line-height: 8vh;
+        }
+        a{
+            text-decoration: none;
+            color: black;
+        }
+        #add, #logout{
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <a href="/addppt" class = "headeritems" id="add">Add PPT</a>
+        <div class = "headeritems">Dashboard</div>
+        <a href="/logout" class = "headeritems" id="logout">Logout</a>
+    </div>
+    <div id="content">
+        <%for(var i=0; i<ppt.length; i++){%>
+            <a href="/home/<%= i+1 %>" class="ppts"><%=`PPT ${i+1}`%></a>
+        <%}%>
+    </div>
+</body>
+</html>
